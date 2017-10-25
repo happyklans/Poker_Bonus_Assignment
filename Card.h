@@ -8,6 +8,10 @@ Project Euler #54
 #ifndef CARD_H
 #define CARD_H
 
+#include <iostream>
+#include <fstream>
+
+
 class Card
 {
 public:
@@ -35,6 +39,14 @@ public:
 	friend bool operator <= (Card& card_on_left, Card& card_on_right);
 
 	friend bool operator >= (Card& card_on_left, Card& card_on_right);
+
+	friend std::ifstream & operator >> (std::ifstream& in, Card& card);
+
+	friend std::ofstream & operator << (std::ofstream& in, Card& card);
+
+	friend std::istream & operator >> (std::istream& in, Card& card);
+
+	friend std::ostream & operator << (std::ostream& in, Card& card);
 
 private:
 	

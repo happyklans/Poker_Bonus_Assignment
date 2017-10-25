@@ -99,3 +99,11 @@ bool operator >= (Card& card_on_left, Card& card_on_right)
 		return false;
 	}
 }
+
+std::ifstream & operator >> (std::ifstream& in, Card& card);
+
+std::ofstream & operator << (std::ofstream& in, Card& card);
+
+std::istream & operator >> (std::istream& in, Card& card);
+
+std::ostream & operator << (std::ostream& in, Card& card);
