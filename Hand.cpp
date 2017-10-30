@@ -78,10 +78,9 @@ void Hand::has_pair()
 
 				return;
 			}
+			else pair = 0;
 		}
 	}
-
-	pair = 0;
 
 	return;
 }
@@ -110,11 +109,10 @@ void Hand::has_two_pair()
 
 					return;
 				}
+				else two_pair[1] = 0;
 			}
 		}
 	}
-
-	two_pair[1] = 0;
 
 	return;
 }
@@ -143,12 +141,11 @@ void Hand::has_three_of_a_kind()
 
 						return;
 					}
+					else three_of_a_kind = 0;
 				}
 			}
 		}
 	}
-
-	three_of_a_kind = 0;
 
 	return;
 
@@ -156,9 +153,87 @@ void Hand::has_three_of_a_kind()
 
 void Hand::has_straight()
 {
+	int low_card = hand[0].get_card_value();
 
+	if (!pair)
+	{
+		straight = 0;
+
+		return;
+	}
+
+	for (int i = 0; i < HAND_SIZE; i++)
+	{
+		if (hand[i].get_card_value() < low_card)
+			low_card = hand[i].get_card_value();
+	}
+
+	if ((highest_card - low_card) == 4)
+	{
+		straight = highest_card;
+
+		return;
+	}
+	else straight = 0;
+	return;
 }
 
-void Hand::has_flush();
+void Hand::has_flush()
+{
+	char test_suite = hand[0].get_card_suite();
 
-void Hand::has_four_of_a_kind();
+	for (int i = 0; i < HAND_SIZE; i++)
+	{
+		if (hand[i].get_card_suite() != test_suite)
+		{
+			flush = false;
+
+			return;
+		}
+		else flush = true;
+	}
+
+	return;
+}
+
+void Hand::has_four_of_a_kind()
+{
+	if (!pair)
+	{
+		four_of_a_kind = 0;
+
+		return;
+	}
+
+	for (int i = 0; i < HAND_SIZE - 1; i++)
+	{
+		for (int j = i + 1; i < HAND_SIZE; j++)
+		{
+			if (hand[j] == hand[i])
+			{
+				for (int k = j + 1; k < HAND_SIZE; k++)
+				{
+					if (hand[k] == hand[i])
+					{
+						for (int l = k + 1; l < HAND_SIZE; l++)
+						{
+							if (hand[l] == hand[i])
+							{
+								four_of_a_kind = hand[i].get_card_value();
+
+								return;
+							}
+							else four_of_a_kind = 0;
+						}
+					}
+				}
+			}
+		}
+
+		
+
+	}
+
+	return;
+
+}

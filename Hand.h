@@ -49,6 +49,8 @@ private:
 
 	int four_of_a_kind;
 
+
+
 };
 
 #endif
