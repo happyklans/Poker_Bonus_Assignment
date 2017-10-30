@@ -42,8 +42,7 @@ char Card::get_card_suite()
 
 bool operator == (Card& card_on_left, Card& card_on_right)
 {
-	if (card_on_left.get_card_value() == card_on_right.get_card_value() && 
-		card_on_left.get_card_suite() == card_on_right.get_card_suite())
+	if (card_on_left.get_card_value() == card_on_right.get_card_value())
 		return true;
 	else
 	{
@@ -100,10 +99,23 @@ bool operator >= (Card& card_on_left, Card& card_on_right)
 	}
 }
 
-std::ifstream & operator >> (std::ifstream& in, Card& card);
+std::ifstream & operator >> (std::ifstream& in, Card& card)
+{
+	card.card_value = in.get();
 
-std::ofstream & operator << (std::ofstream& in, Card& card);
+	card.suite = in.get();
 
-std::istream & operator >> (std::istream& in, Card& card);
+	
+	in.ignore();
 
-std::ostream & operator << (std::ostream& in, Card& card);
+	return in;
+	
+}
+
+std::ofstream & operator << (std::ofstream& in, Card& card)
+{
+	in << card.card_value << card.suite << ' ';
+
+	return in;
+}
+

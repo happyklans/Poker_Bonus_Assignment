@@ -44,10 +44,6 @@ public:
 
 	friend std::ofstream & operator << (std::ofstream& in, Card& card);
 
-	friend std::istream & operator >> (std::istream& in, Card& card);
-
-	friend std::ostream & operator << (std::ostream& in, Card& card);
-
 private:
 	
 	int card_value;
