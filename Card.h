@@ -42,7 +42,11 @@ public:
 
 	friend std::ifstream & operator >> (std::ifstream& in, Card& card);
 
-	friend std::ofstream & operator << (std::ofstream& in, Card& card);
+	friend std::ofstream & operator << (std::ofstream& out, Card& card);
+
+	friend std::istream & operator >> (std::istream& in, Card& card);
+
+	friend std::ostream & operator << (std::ostream& out, Card& card);
 
 private:
 	

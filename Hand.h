@@ -3,6 +3,7 @@
 
 #include "Card.h"
 
+#define HAND_SIZE 5
 
 class Hand
 {
@@ -16,29 +17,29 @@ public:
 
 	void get_hand();
 
-	int high_card();
+	void high_card();
 	
-	int has_pair();
+	void has_pair();
 
-	int has_two_pair();
+	void has_two_pair();
 
-	int has_three_of_a_kind();
+	void has_three_of_a_kind();
 
-	int has_straight();
+	void has_straight();
 
-	bool has_flush();
+	void has_flush();
 
-	int has_four_of_a_kind();
+	void has_four_of_a_kind();
 
 private:
 	
-	Card hand[5];
+	Card hand[HAND_SIZE];
 
-	int high_card;
+	int highest_card;
 
 	int pair;
 
-	int two_pair;
+	int two_pair[2];
 
 	int three_of_a_kind;
 

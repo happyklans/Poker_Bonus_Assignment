@@ -112,10 +112,27 @@ std::ifstream & operator >> (std::ifstream& in, Card& card)
 	
 }
 
-std::ofstream & operator << (std::ofstream& in, Card& card)
+std::ofstream & operator << (std::ofstream& out, Card& card)
 {
-	in << card.card_value << card.suite << ' ';
+	out << card.card_value << card.suite << ' ';
+
+	return out;
+}
+
+std::istream & operator >> (std::istream& in, Card& card)
+{
+	card.card_value = in.get();
+
+	card.suite = in.get();
+
+	in.ignore();
 
 	return in;
 }
 
+std::ostream & operator << (std::ostream& out, Card& card)
+{
+	out << card.card_value << card.suite << ' ';
+
+	return out;
+}
