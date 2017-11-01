@@ -18,13 +18,13 @@ public:
 	
 	Card(); //default constructor
 
-	Card(int value, char suite); //parameterized constructor
+	Card(int value, char suit); //parameterized constructor
 
-	void set_card_value(int value, char suite); // set function/mutator
+	void set_card_value(int value, char suit); // set function/mutator
 
 	int get_card_value(); // get function/ assesor
 
-	char get_card_suite(); // get function/ assesor
+	char get_card_suit(); // get function/ assesor
 
 	//overloading logic operators
 
@@ -52,7 +52,7 @@ private:
 	
 	int card_value;
 
-	char suite;
+	char suit;
 };
 
 #endif

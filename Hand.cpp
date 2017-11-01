@@ -180,11 +180,11 @@ void Hand::has_straight()
 
 void Hand::has_flush()
 {
-	char test_suite = hand[0].get_card_suite();
+	char test_suit = hand[0].get_card_suit();
 
 	for (int i = 0; i < HAND_SIZE; i++)
 	{
-		if (hand[i].get_card_suite() != test_suite)
+		if (hand[i].get_card_suit() != test_suit)
 		{
 			flush = false;
 
