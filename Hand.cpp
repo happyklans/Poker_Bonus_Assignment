@@ -4,7 +4,7 @@
 
 Hand::Hand()
 {
-	Card null_card(0, 0);
+	Card null_card(0,0);
 
 	for (int i = 0; i < HAND_SIZE; i++)
 	{
@@ -23,6 +23,24 @@ Hand::Hand(Card & c1, Card & c2, Card & c3, Card & c4, Card & c5)
 	hand[3] = c4;
 
 	hand[4] = c5;
+
+	get_hand();
+
+	high_card();
+
+	has_pair();
+
+	has_two_pair();
+
+	has_three_of_a_kind();
+
+	has_straight();
+
+	has_flush();
+
+	has_full_house();
+
+	has_four_of_a_kind();
 }
 
 void Hand::set_hand(Card & c1, Card & c2, Card & c3, Card & c4, Card & c5)
@@ -37,6 +55,24 @@ void Hand::set_hand(Card & c1, Card & c2, Card & c3, Card & c4, Card & c5)
 
 	hand[4] = c5;
 
+	get_hand();
+
+	high_card();
+
+	has_pair();
+
+	has_two_pair();
+
+	has_three_of_a_kind();
+
+	has_straight();
+
+	has_flush();
+
+	has_full_house();
+
+	has_four_of_a_kind();
+
 	return;
 }
 
@@ -48,6 +84,99 @@ void Hand::get_hand()
 	}
 
 	return;
+}
+
+int Hand::compare_hand(Hand & hand_one, Hand & hand_two)
+{
+	if (hand_one.royal_flush == true && hand_two.royal_flush == false)
+		return 1;
+	else if (hand_one.royal_flush == false && hand_two.royal_flush == true)
+		return 2;
+	else if (hand_one.royal_flush == true && hand_two.royal_flush == true)
+		return 0;
+	else if (hand_one.royal_flush == false && hand_two.royal_flush == false)
+	{
+		if (hand_one.straight_flush > hand_two.straight_flush)
+			return 1;
+		else if (hand_one.straight_flush < hand_two.straight_flush)
+			return 2;
+		else if (hand_one.straight_flush == hand_two.straight_flush)
+			return 0;
+		else if (hand_one.straight_flush == 0 && hand_two.straight_flush == 0)
+		{
+			if (hand_one.four_of_a_kind > hand_two.four_of_a_kind)
+				return 1;
+			else if (hand_one.four_of_a_kind < hand_two.four_of_a_kind)
+				return 2;
+			else if (hand_one.four_of_a_kind == hand_two.four_of_a_kind)
+				return 0;
+			else if (hand_one.four_of_a_kind == 0 && hand_two.four_of_a_kind == 0)
+			{
+				if (hand_one.full_house > hand_two.full_house)
+					return 1;
+				else if (hand_one.full_house < hand_two.full_house)
+					return 2;
+				else if (hand_one.full_house == hand_two.full_house)
+					return 0;
+				else if (hand_one.full_house == 0 && hand_two.full_house == 0)
+				{
+					if (hand_one.flush == true && hand_two.flush == false)
+						return 1;
+					else if (hand_one.flush == false && hand_two.flush == true)
+						return 2;
+					else if (hand_one.flush == true && hand_two.flush == true)
+						return 0;
+					else if (hand_one.flush == false && hand_two.flush == false)
+					{
+						if (hand_one.straight > hand_two.straight)
+							return 1;
+						else if (hand_one.straight < hand_two.straight)
+							return 2;
+						else if (hand_one.straight == hand_two.straight)
+							return 0;
+						else if (hand_one.straight == 0 && hand_two.straight == 0)
+						{
+							if (hand_one.three_of_a_kind > hand_two.three_of_a_kind)
+								return 1;
+							else if (hand_one.three_of_a_kind < hand_two.three_of_a_kind)
+								return 2;
+							else if (hand_one.three_of_a_kind == hand_two.three_of_a_kind)
+								return 0;
+							else if (hand_one.three_of_a_kind == 0 && hand_two.three_of_a_kind == 0)
+							{
+								if (std::max(hand_one.two_pair[0], hand_one.two_pair[1]) > std::max(hand_two.two_pair[0], hand_two.two_pair[1]))
+									return 1;
+								else if (std::max(hand_one.two_pair[0], hand_one.two_pair[1]) < std::max(hand_two.two_pair[0], hand_two.two_pair[1]))
+									return 2;
+								else if (std::max(hand_one.two_pair[0], hand_one.two_pair[1]) == std::max(hand_two.two_pair[0], hand_two.two_pair[1]))
+									return 0;
+								else if (std::max(hand_one.two_pair[0], hand_one.two_pair[1]) == 0
+									&& std::max(hand_two.two_pair[0], hand_two.two_pair[1]) == 0)
+								{
+									if (hand_one.pair > hand_two.pair)
+										return 1;
+									else if (hand_one.pair < hand_two.pair)
+										return 2;
+									else if (hand_one.pair == hand_two.pair)
+										return 0;
+									else if (hand_one.pair == 0 && hand_two.pair == 0)
+									{
+										if (hand_one.highest_card > hand_two.highest_card)
+											return 1;
+										else if (hand_one.highest_card < hand_two.highest_card)
+											return 2;
+										else if (hand_one.highest_card == hand_two.highest_card)
+											return 0;
+										else return -1;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 void Hand::high_card()
@@ -196,6 +325,20 @@ void Hand::has_flush()
 	return;
 }
 
+void Hand::has_full_house()
+{
+	if (pair && three_of_a_kind)
+		full_house = three_of_a_kind;
+	else
+	{
+		full_house = 0;
+
+		return;
+	}
+
+	return;
+}
+
 void Hand::has_four_of_a_kind()
 {
 	if (!pair)
@@ -236,4 +379,57 @@ void Hand::has_four_of_a_kind()
 
 	return;
 
+}
+
+void Hand::has_straight_flush()
+{
+	if (straight && flush)
+		straight_flush = highest_card;
+	else
+	{
+		straight_flush = 0;
+
+		return;
+	}
+
+	return;
+}
+
+void Hand::has_royal_flush()
+{
+	if (straight_flush && highest_card == 14)
+		royal_flush = true;
+	else
+	{
+		royal_flush = false;
+
+		return;
+	}
+
+	return;
+}
+
+/*----------------------------------------friend fuctions-----------------------------------------*/
+
+std::ifstream & operator >> (std::ifstream & in, Hand & hand_to_fill)
+{
+	for (int i = 0; i < HAND_SIZE; i++)
+	{
+		in >> hand_to_fill.hand[i];
+	}
+
+	if (in.peek() == '\n')
+		in.ignore();
+
+	return in;
+}
+
+std::ofstream & operator << (std::ofstream & out, Hand & hand_to_write)
+{
+	for (int i = 0; i < HAND_SIZE; i++)
+	{
+		out << hand_to_write.hand[i];
+	}
+
+	return out;
 }
