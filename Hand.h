@@ -16,7 +16,7 @@ public:
 
 	void set_hand(Card & c1, Card & c2, Card & c3, Card & c4, Card & c5);
 
-	int compare_hand(Hand & hand_one, Hand & hand_two);
+	friend int compare_hand(Hand & hand_one, Hand & hand_two);
 
 	friend std::ifstream & operator >> (std::ifstream & in, Hand & hand_to_fill);
 

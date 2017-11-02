@@ -101,7 +101,36 @@ bool operator >= (Card& card_on_left, Card& card_on_right)
 
 std::ifstream & operator >> (std::ifstream& in, Card& card)
 {
-	card.card_value = in.get();
+	char temp = 0;
+
+	temp = in.get();
+
+	if (isdigit(temp))
+		card.card_value = static_cast<int>(temp-48);
+	else
+	{
+		switch (temp)
+		{
+		case 'T':
+			card.card_value = 10;
+			break;
+		case 'J':
+			card.card_value = 11;
+			break;
+		case 'Q':
+			card.card_value = 12;
+			break;
+		case 'K':
+			card.card_value = 13;
+			break;
+		case 'A':
+			card.card_value = 14;
+			break;
+		default:
+			card.card_value = 0;
+			break;
+		}
+	}
 
 	card.suit = in.get();
 

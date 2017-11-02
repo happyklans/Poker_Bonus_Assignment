@@ -119,6 +119,10 @@
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="Deck.cpp" />
     <ClCompile Include="Hand.cpp" />
+    <ClCompile Include="Poker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="poker_hands.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
