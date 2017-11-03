@@ -173,7 +173,7 @@ void Hand::has_three_of_a_kind()
 	
 	for (int i = 0; i < HAND_SIZE - 1; i++)
 	{
-		for (int j = i + 1; i < HAND_SIZE; j++)
+		for (int j = i + 1; j < HAND_SIZE; j++)
 		{
 			if (hand[j] == hand[i])
 			{
@@ -265,7 +265,7 @@ void Hand::has_four_of_a_kind()
 
 	for (int i = 0; i < HAND_SIZE - 1; i++)
 	{
-		for (int j = i + 1; i < HAND_SIZE; j++)
+		for (int j = i + 1; j < HAND_SIZE; j++)
 		{
 			if (hand[j] == hand[i])
 			{
