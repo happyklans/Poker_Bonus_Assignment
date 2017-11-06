@@ -221,6 +221,7 @@ void Hand::has_straight()
 		return;
 	}
 	else straight = 0;
+
 	return;
 }
 
@@ -246,22 +247,20 @@ void Hand::has_full_house()
 {
 	if (three_of_a_kind)
 	{
-		for (int j = 0; j < HAND_SIZE - 1; j++)
+		if (std::min(two_pair[0], two_pair[1]))
 		{
-			for (int i = j + 1; i < HAND_SIZE; i++)
-			{
-				if (hand[i] == hand[j] &&  hand[i].get_card_value() != three_of_a_kind)
-				{
-					full_house = three_of_a_kind;
-
-					return;
-				}
-				else continue;
-			}
-		}
-	}
+			if (three_of_a_kind == two_pair[0])
+				pair = two_pair[1];
+			else
+				pair = two_pair[0];
 		
+			full_house = three_of_a_kind;
 
+				return;
+		}
+		
+		}
+	
 	else
 	{
 		full_house = 0;
@@ -299,7 +298,7 @@ void Hand::has_four_of_a_kind()
 
 								return;
 							}
-							else four_of_a_kind = 0;
+
 						}
 					}
 				}
@@ -307,6 +306,8 @@ void Hand::has_four_of_a_kind()
 		}
 	}
 
+	four_of_a_kind = 0;
+	
 	return;
 
 }
@@ -400,9 +401,39 @@ int compare_hand(Hand & hand_one, Hand & hand_two)
 								&& hand_one.three_of_a_kind == hand_two.three_of_a_kind
 								|| hand_one.three_of_a_kind == 0 && hand_two.three_of_a_kind == 0)
 							{
-								
+								if (std::min(hand_one.two_pair[0], hand_one.two_pair[1]) != 0
+									&& std::min(hand_two.two_pair[0], hand_two.two_pair[1]) == 0)
 								{
-									
+									return 1;
+								}
+								else if (std::min(hand_two.two_pair[0], hand_two.two_pair[1]) != 0
+									&& std::min(hand_one.two_pair[0], hand_one.two_pair[1]) == 0)
+								{
+									return 2;
+								}
+								else if (std::max(hand_one.two_pair[0], hand_one.two_pair[0]) > 
+									std::max(hand_two.two_pair[0], hand_two.two_pair[1]))
+								{
+									return 1;
+								}
+								else if (std::max(hand_two.two_pair[0], hand_two.two_pair[0]) >
+									std::max(hand_one.two_pair[0], hand_one.two_pair[1]))
+								{
+									return 2;
+								}
+								else if (std::min(hand_one.two_pair[0], hand_one.two_pair[1]) >
+									std::min(hand_two.two_pair[0], hand_two.two_pair[1]))
+								{
+									return 1;
+								}
+								else if (std::min(hand_two.two_pair[0], hand_two.two_pair[0]) >
+									std::min(hand_one.two_pair[0], hand_one.two_pair[1]))
+								{
+									return 2;
+								}
+								else
+								{
+
 									if (hand_one.pair > hand_two.pair)
 										return 1;
 									else if (hand_one.pair < hand_two.pair)
@@ -420,7 +451,7 @@ int compare_hand(Hand & hand_one, Hand & hand_two)
 											return 0;
 										else return -1;
 									}
-									
+
 								}
 							}
 						}
