@@ -7,7 +7,6 @@ CSC 161
 #include "Hand.h"
 #include <iostream>
 #include <fstream>
-#include <string>
 
 using namespace std;
 
@@ -22,14 +21,13 @@ int main()
 
 	Hand player_two;
 
-	string line;
-
 	int player_one_wins = 0;
 
 	int player_two_wins = 0;
 
 	int split_pot = 0;
 
+	int winner = 0;
 
 	hand_file.open("poker_hands.txt", ios::in);
 
@@ -41,7 +39,9 @@ int main()
 
 		hand_file >> player_two;
 
-		switch (compare_hand(player_one, player_two))
+		winner = compare_hand(player_one, player_two);
+
+		switch (winner)
 		{
 		case -1:
 			break;
